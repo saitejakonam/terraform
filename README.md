@@ -1,58 +1,50 @@
-# terraform
-🌐 Terraform Azure Storage Account
+# 🌐 Terraform Azure Storage Account
 
-This project uses Terraform to deploy an Azure Resource Group and an Azure Storage Account (free-tier friendly).
+This project uses **Terraform** to deploy an **Azure Resource Group** and an **Azure Storage Account** (free-tier friendly).  
 It follows best practices, includes clean structure, and is fully GitHub-ready.
 
-📑 Table of Contents
+---
 
-Overview
+## 📑 Table of Contents
+- [Overview](#-overview)
+- [Features](#-features)
+- [Project Structure](#-project-structure)
+- [Prerequisites](#-prerequisites)
+- [Setup Instructions](#-setup-instructions)
+- [Usage](#-usage)
+- [Outputs](#-outputs)
+- [Cleanup](#-cleanup)
+- [Security Notes](#-security-notes)
+- [References](#-references)
+- [License](#-license)
 
-Features
+---
 
-Project Structure
-
-Prerequisites
-
-Setup Instructions
-
-Usage
-
-Outputs
-
-Cleanup
-
-Security Notes
-
-References
-
-License
-
-📘 Overview
+## 📘 Overview
 
 This Terraform configuration automates the deployment of:
 
-An Azure Resource Group
-
-A Standard LRS Storage Account (free-tier safe)
-
-Optional outputs like Blob endpoint
+- An **Azure Resource Group**
+- A **Standard LRS Storage Account** (free-tier safe)
+- Optional outputs like Blob endpoint
 
 It is perfect for beginners learning Terraform on Azure or for simple automation workflows.
 
-✨ Features
+---
 
-Infrastructure as Code (IaC) using Terraform
+## ✨ Features
 
-Modular, clean Terraform structure
+- Infrastructure as Code (IaC) using Terraform  
+- Modular, clean Terraform structure  
+- Free-tier compatible Azure resources  
+- Separation of variables and sensitive values  
+- GitHub-safe (`terraform.tfvars` is ignored)
 
-Free-tier compatible Azure resources
+---
 
-Separation of variables and sensitive values
+## 📁 Project Structure
 
-GitHub-safe (terraform.tfvars is ignored)
-
-📁 Project Structure
+```plaintext
 terraform-azure-storage/
 ├── main.tf               # Terraform resources
 ├── variables.tf          # Input variables
@@ -60,80 +52,85 @@ terraform-azure-storage/
 ├── terraform.tfvars      # Sensitive values (ignored by Git)
 └── .gitignore            # Protects state files & tfvars
 
-🛠️ Prerequisites
+## 🛠️ Prerequisites
 
-Make sure you have the following installed:
+Ensure the following are installed and configured:
 
-✔ Terraform
-terraform -version
+- Terraform  
+  ```bash
+  terraform -version
+  ```
 
-✔ Azure CLI
-az --version
+- Azure CLI  
+  ```bash
+  az --version
+  ```
 
-✔ Login to Azure
-az login
+- Login to Azure  
+  ```bash
+  az login
+  ```
 
-✔ Confirm active subscription
-az account list --output table
+- Confirm active subscription  
+  ```bash
+  az account list --output table
+  ```
 
-⚙️ Setup Instructions
-1️⃣ Clone the repo
-git clone https://github.com/saitejakonam/terraform.git
-cd terraform-azure-storage
+## ⚙️ Setup Instructions
 
-2️⃣ Create terraform.tfvars
+1. Clone the repository
+   ```bash
+   git clone https://github.com/saitejakonam/terraform.git
+   cd terraform-azure-storage
+   ```
 
-Create a file named terraform.tfvars (auto-ignored by .gitignore):
+2. Create terraform.tfvars (kept local and ignored by Git)
+   ```hcl
+   subscription_id = "your-subscription-id"
+   tenant_id       = "your-tenant-id"
+   ```
 
-subscription_id = "your-subscription-id"
-tenant_id       = "your-tenant-id"
+## 🚀 Usage
 
+- Initialize Terraform
+  ```bash
+  terraform init
+  ```
 
-Replace with your actual Azure subscription and tenant values.
+- Preview changes
+  ```bash
+  terraform plan
+  ```
 
-🚀 Usage
-Initialize Terraform
-terraform init
+- Apply configuration
+  ```bash
+  terraform apply -auto-approve
+  ```
 
-Preview the deployment
-terraform plan
+This will deploy:
+- Resource Group
+- Storage Account
 
-Apply the configuration
-terraform apply -auto-approve
+## 📤 Outputs
 
+After deployment, Terraform will display:
+```
+primary_blob_endpoint = https://<account>.blob.core.windows.net/
+```
 
-This will create:
-
-Resource Group
-
-Storage Account
-
-📤 Outputs
-
-After applying, Terraform will display useful outputs such as:
-
-primary_blob_endpoint
-
-Example:
-
-primary_blob_endpoint = https://myterraformstorage.blob.core.windows.net/
-
-🗑️ Cleanup
+## 🗑️ Cleanup
 
 To remove all deployed resources:
-
+```bash
 terraform destroy -auto-approve
+```
 
-🔒 Security Notes
+## 🔒 Security Notes
 
-Never commit terraform.tfvars or Azure credentials.
+- Never commit terraform.tfvars or Azure credentials.  
+- Ensure .gitignore includes:
+  - terraform.tfstate
+  - backup state files
+  - terraform.tfvars
 
-Always use .gitignore to protect:
-
-State files
-
-Backup state
-
-Sensitive variable files
-
-Use Azure Storage for remote backend in real projects.
+For production, use Azure Storage as a remote backend for Terraform.
